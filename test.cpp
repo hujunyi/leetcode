@@ -1,6 +1,7 @@
 #include<string>
 #include<iostream>
 #include<set>
+#include<cstring>
 using namespace std;
 struct ListNode {
     int val;
@@ -9,10 +10,7 @@ struct ListNode {
 };
 int main()
 {
-	ListNode* a;
-	ListNode* b;
-	a = b;
-	a=new ListNode();
-	cout<<a->val;
+	char a[5];
+  cout<<strlen(a);
 	return 0;
 }
