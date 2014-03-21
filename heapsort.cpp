@@ -1,75 +1,39 @@
 #include<iostream>
+#include<vector>
+#include<utility>
 using namespace std;
-void heapify(int *A,int start,int end)
-{
-	int root = start;
-	while(root*2+1<=end)
-	{
-		int left=root*2+1;
-		int right=left+1;
-		int largest=root;
-		if(A[largest]<A[left])
-		{
-			largest=left;
-		}
-		if((right<=end)&&A[largest]<A[right])
-		{
-			largest=right;
-		}
-		if(largest!=root)
-		{
-			int tmp=A[largest];
-			A[largest]=A[root];
-			A[root]=tmp;
-		}
-		else
-		{
-			break;
-		}
-	}
-	return;
-}
-void buildheap(int *A,int start,int end)
-{
-	int mid=(end-start-1)/2;
-	while(mid>=start)
-	{
-		heapify(A,mid,end);
-		mid--;
-		for(int i=0;i<=5;i++)
-		{
-			cout<<A[i]<<" ";
-		}
-		cout<<endl;
-	}
-	return;
-}
-void heapSort(int *A,int start,int end)
-{
-	buildheap(A,start,end);
-	int size = end;
-	while(size!=start)
-	{
-		int tmp=A[size];
-		A[size] = A[0];
-		A[0] = tmp;
-		size--;
-		heapify(A,start,size);
-	}
-	return;
+void heapsort(vector<int> &array){
+  int mid = (array.size()-2)/2;
+  int end = array.size()-1;
+  for(int i=0;i<array.size();i++){
+    //Construct the heap repeatedly
+    mid = (end-1)/2;
+    while(mid>=0){
+      if(mid*2+1<=end){
+        int left = mid*2+1;
+        int right = left+1;
+        int largest = mid;
+        if(array[largest]<array[left])
+          swap(array[largest],array[left]);
+        if(right<=end&&array[largest]<array[right])
+          swap(array[largest],array[right]);
+      }
+      mid--;
+    }
+    //Put the root to the end of the arry and reconstruct the heap 
+    swap(array.front(),array[end]);
+    end--;
+  }
 }
 int main()
 {
-	int a[] = {13,5,8,3,17,25};
-	
-	buildheap(a,0,5);
-	heapSort(a,0,5);
-	for(int i=0;i<=5;i++)
-	{
-		cout<<a[i]<<" ";
-	}
-		cout<<endl;
-	
+	int a[] = {20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0};
+  vector<int> array(a,a+sizeof(a)/sizeof(int));
+  heapsort(array);
+  for(int i=0;i<array.size();i++){
+    cout<<array[i]<<" ";
+  }
+  cout<<endl;
 	return 0;
 	
 }
